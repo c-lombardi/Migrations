@@ -6,14 +6,12 @@ namespace Migrations.Types
 {
     public class MigrationSession
     {
-        private MigrationSession()
-        {
-            MigrationSessionId = Guid.NewGuid();
-            StartedOn = DateTime.UtcNow;
-        }
+        public MigrationSession() { }
 
         internal MigrationSession(IEnumerable<Migration> migrations) : this()
         {
+            MigrationSessionId = Guid.NewGuid();
+            StartedOn = DateTime.UtcNow;
             MigrationsToBeApplied = migrations;
             if (migrations.Any())
             {
