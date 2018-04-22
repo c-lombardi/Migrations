@@ -44,16 +44,14 @@ namespace Migrations.Types
         }
 
         public Guid MigrationSessionId { get; set; }
-
         public MigrationVersion FirstVersion { get; set; }
-
-        public readonly MigrationVersion LastVersion;
-        public readonly DateTime StartedOn;
-        public MigrationVersion CompletedOnVersion { get; private set; }
-        public DateTime? CompletedOn { get; private set; }
-        public bool CompletedSuccessfully { get; private set; }
-        public string InnerException { get; private set; }
-        public string StackTrace { get; private set; }
+        public MigrationVersion LastVersion { get; set; }
+        public DateTime StartedOn { get; set; }
+        public MigrationVersion CompletedOnVersion { get; set; }
+        public DateTime? CompletedOn { get; set; }
+        public bool CompletedSuccessfully { get; set; }
+        public string InnerException { get; set; }
+        public string StackTrace { get; set; }
 
         internal readonly IEnumerable<Migration> MigrationsToBeApplied;
 
