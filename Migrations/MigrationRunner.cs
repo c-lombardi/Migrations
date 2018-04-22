@@ -73,13 +73,16 @@ namespace Migrations
         {
             try
             {
-                RepositoryMigrationStatus.StartMigration(
+                if (RepositoryMigrationStatus.TryStartMigration(
                     repository,
-                    startedMigration);
-                startedMigration.Migration.Update(repository);
-                RepositoryMigrationStatus.CompleteMigration(
-                    repository,
-                    startedMigration);
+                    startedMigration))
+                {
+                    startedMigration.Migration.Update(repository);
+
+                    RepositoryMigrationStatus.CompleteMigration(
+                        repository,
+                        startedMigration);
+                }
             }
             catch (Exception exception)
             {
