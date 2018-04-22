@@ -4,8 +4,8 @@ namespace Migrations.Types
 {
     public abstract class Migration
     {
-        public MigrationVersion Version { get; protected set; }
-        public abstract string Description { get; protected set; }
+        public readonly MigrationVersion Version;
+        public readonly string Description;
 
         protected Migration(
             MigrationVersion version,
