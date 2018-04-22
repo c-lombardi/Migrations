@@ -5,12 +5,12 @@ namespace Migrations.Types
     public class RepositoryMigration
     {
         internal readonly Migration Migration;
-        public readonly MigrationVersion Version;
-        public readonly string Description;
-        public readonly DateTime StartedOn;
-        public DateTime? CompletedOn { get; private set; }
+        public MigrationVersion Version { get; protected set; }
+        public string Description { get; protected set; }
+        public DateTime StartedOn { get; protected set; }
+        public DateTime? CompletedOn { get; protected set; }
 
-        internal RepositoryMigration(Migration migration)
+        public RepositoryMigration(Migration migration)
         {
             Migration = migration;
             StartedOn = DateTime.UtcNow;
