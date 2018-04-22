@@ -14,8 +14,8 @@ namespace Migrations.Types
         {
             Migration = migration;
             StartedOn = DateTime.UtcNow;
-            Version = migration.Version;
-            Description = migration.Description;
+            Version = migration?.Version ?? MigrationVersion.Default();
+            Description = migration?.Description ?? string.Empty;
         }
 
         internal void CompleteMigration()
