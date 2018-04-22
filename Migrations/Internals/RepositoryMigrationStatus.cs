@@ -26,7 +26,7 @@ namespace Migrations.Internals
             IRepository repository, 
             RepositoryMigration migrationToStart)
         {
-            repository.UpsertMigration(migrationToStart);
+            repository.AddMigration(migrationToStart);
         }
 
         internal static void CompleteMigration(

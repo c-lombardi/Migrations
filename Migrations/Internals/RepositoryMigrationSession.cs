@@ -36,11 +36,18 @@ namespace Migrations.Internals
             IEnumerable<Migration> migrationsToBeApplied, 
             out MigrationSession migrationSession)
         {
-            migrationSession = MigrationSessionIsExecuting(repository)
-                ? null
-                : new MigrationSession(migrationsToBeApplied);
+            bool migrationSessionStarted = !MigrationSessionIsExecuting(repository);
 
-            return migrationSession != null;
+            migrationSession = migrationSessionStarted
+                ? new MigrationSession(migrationsToBeApplied)
+                : null;
+
+            if (migrationSessionStarted)
+            {
+                repository.AddMigrationSession(migrationSession);
+            }
+
+            return migrationSessionStarted;
         }
     }
 }
