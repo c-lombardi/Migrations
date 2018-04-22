@@ -1,3 +1,5 @@
+using Migrations.ToBeImplemented;
+
 namespace Migrations.Types
 {
     public abstract class Migration
@@ -13,8 +15,8 @@ namespace Migrations.Types
             Description = description;
         }
 
-        public abstract void Update();
+        public abstract void Update(IRepository repository);
 
-        public abstract void Rollback();
+        public abstract void Rollback(IRepository repository);
     }
 }

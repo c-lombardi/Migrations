@@ -53,7 +53,7 @@ namespace Migrations
         {
             try
             {
-                repositoryMigration.Migration.Rollback();
+                repositoryMigration.Migration.Rollback(repository);
                 RepositoryMigrationStatus.FailMigration(
                     repository,
                     repositoryMigration);
@@ -76,7 +76,7 @@ namespace Migrations
                 RepositoryMigrationStatus.StartMigration(
                     repository,
                     startedMigration);
-                startedMigration.Migration.Update();
+                startedMigration.Migration.Update(repository);
                 RepositoryMigrationStatus.CompleteMigration(
                     repository,
                     startedMigration);
