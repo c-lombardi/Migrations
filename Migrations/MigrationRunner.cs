@@ -86,7 +86,9 @@ namespace Migrations
         }
 
         /// <summary>
-        /// Derive what migrations should be executed from the migration locator compared to the current state of migrations applied from the repository and apply them in order of version ascending.
+        /// Use the migration locator to derive what migrations should be executed.
+        /// Compare the migrations to be executed against the migrations applied to the repository. 
+        /// Synchronously apply the migrations that were not applied to the repository in ascending order.
         /// </summary>
         /// <param name="migrationLocator">The Migration Locator</param>
         /// <param name="repository">The Migration Repository</param>
