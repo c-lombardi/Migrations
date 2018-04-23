@@ -7,13 +7,6 @@ namespace Migrations.Internals
 {
     internal static class MigrationHelpers
     {
-        internal static bool MigrationIsAvailableToExecute(IEnumerable<RepositoryMigration> migrations)
-        {
-            return !migrations
-                .Any(migration => migration.CompletedOn == null);
-        }
-
-
         internal static MigrationVersion GetMaxVersionOrDefault(IEnumerable<RepositoryMigration> repositoryMigrations)
         {
             return repositoryMigrations.Any()
@@ -30,16 +23,11 @@ namespace Migrations.Internals
                 .OrderBy(migration => migration.Version);
         }
 
-        internal static bool TryStartMigration(
+        internal static void StartMigration(
             Action<RepositoryMigration> addMigration,
-            RepositoryMigration migrationToStart,
-            bool migrationStarted)
+            RepositoryMigration migrationToStart)
         {
-            if (migrationStarted)
-                return false;
-
             addMigration(migrationToStart);
-            return true;
         }
 
         internal static void CompleteMigration(

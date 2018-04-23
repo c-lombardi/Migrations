@@ -43,17 +43,15 @@ namespace Migrations
         {
             try
             {
-                if (MigrationHelpers.TryStartMigration(
+                MigrationHelpers.StartMigration(
                     repository.AddMigration,
-                    startedMigration,
-                    MigrationHelpers.MigrationIsAvailableToExecute(repository.GetMigrations())))
-                {
-                    startedMigration.Migration.Update(repository);
+                    startedMigration);
 
-                    MigrationHelpers.CompleteMigration(
-                        repository.UpsertMigration,
-                        startedMigration);
-                }
+                startedMigration.Migration.Update(repository);
+
+                MigrationHelpers.CompleteMigration(
+                    repository.UpsertMigration,
+                    startedMigration);
             }
             catch (Exception exception)
             {
