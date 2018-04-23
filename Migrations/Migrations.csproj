@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internals\MigrationHelpers.cs" />
+    <Compile Include="Internals\MigrationSessionHelpers.cs" />
     <Compile Include="Types\RepositoryMigration.cs" />
     <Compile Include="Internals\RepositoryMigrationSession.cs" />
     <Compile Include="Internals\RepositoryMigrationStatus.cs" />

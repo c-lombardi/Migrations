@@ -7,36 +7,6 @@ namespace Migrations
 {
     public static class MigrationRunner
     {
-        public static void UpdateToLatest(
-            IMigrationLocator migrationLocator,
-            IRepository repository)
-        {
-            MigrationSession migrationSession;
-            if (RepositoryMigrationSession.TryStartMigrationSession(
-                repository,
-                RepositoryMigrationStatus.GetMigrationsApplied(
-                    repository,
-                    migrationLocator),
-                out migrationSession))
-            {
-                try
-                {
-                    UpdateTo(repository, migrationSession);
-                    RepositoryMigrationSession.CompleteMigrationSession(
-                        repository,
-                        migrationSession);
-                }
-                catch (MigrationException migrationException)
-                {
-                    RepositoryMigrationSession.FailMigrationSession(
-                        repository,
-                        migrationSession,
-                        migrationException);
-                    throw migrationException;
-                }
-            }
-        }
-
         private static void OnRollbackException(
             Migration migration,
             Exception exception)
@@ -54,8 +24,8 @@ namespace Migrations
             try
             {
                 repositoryMigration.Migration.Rollback(repository);
-                RepositoryMigrationStatus.FailMigration(
-                    repository,
+                MigrationHelpers.FailMigration(
+                    repository.DeleteMigration,
                     repositoryMigration);
                 throw new MigrationException(
                     exception,
@@ -73,14 +43,15 @@ namespace Migrations
         {
             try
             {
-                if (RepositoryMigrationStatus.TryStartMigration(
-                    repository,
-                    startedMigration))
+                if (MigrationHelpers.TryStartMigration(
+                    repository.AddMigration,
+                    startedMigration,
+                    MigrationHelpers.MigrationIsAvailableToExecute(repository.GetMigrations())))
                 {
                     startedMigration.Migration.Update(repository);
 
-                    RepositoryMigrationStatus.CompleteMigration(
-                        repository,
+                    MigrationHelpers.CompleteMigration(
+                        repository.UpsertMigration,
                         startedMigration);
                 }
             }
@@ -112,6 +83,42 @@ namespace Migrations
             ApplyMigrations(
                 repository,
                 migrationSession);
+        }
+
+        /// <summary>
+        /// Derive what migrations should be executed from the migration locator compared to the current state of migrations applied from the repository and apply them in order of version ascending.
+        /// </summary>
+        /// <param name="migrationLocator">The Migration Locator</param>
+        /// <param name="repository">The Migration Repository</param>
+        public static void UpdateToLatest(
+            IMigrationLocator migrationLocator,
+            IRepository repository)
+        {
+            MigrationSession migrationSession;
+            if (MigrationSessionHelpers.TryStartMigrationSession(
+                repository.AddMigrationSession,
+                MigrationSessionHelpers.MigrationSessionIsAvailableToExecute(repository.GetMigrationSessions()),
+                MigrationHelpers.GetMigrationsToBeAppliedAscending(
+                    MigrationHelpers.GetMaxVersionOrDefault(repository.GetMigrations()),
+                    migrationLocator.GetAllMigrations()),
+                out migrationSession))
+            {
+                try
+                {
+                    UpdateTo(repository, migrationSession);
+                    MigrationSessionHelpers.CompleteMigrationSession(
+                        repository.UpsertMigrationSession,
+                        migrationSession);
+                }
+                catch (MigrationException migrationException)
+                {
+                    MigrationSessionHelpers.FailMigrationSession(
+                        repository.UpsertMigrationSession,
+                        migrationSession,
+                        migrationException);
+                    throw migrationException;
+                }
+            }
         }
     }
 }

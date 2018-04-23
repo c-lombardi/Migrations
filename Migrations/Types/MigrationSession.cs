@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Migrations.Types
 {
@@ -8,21 +7,16 @@ namespace Migrations.Types
     {
         public MigrationSession() { }
 
-        internal MigrationSession(IEnumerable<Migration> migrations) : this()
+        internal MigrationSession(
+            IEnumerable<Migration> migrationsToBeApplied,
+            MigrationVersion firstVersion,
+            MigrationVersion lastVersion) : this()
         {
             MigrationSessionId = Guid.NewGuid();
             StartedOn = DateTime.UtcNow;
-            MigrationsToBeApplied = migrations;
-            if (migrations.Any())
-            {
-                FirstVersion = migrations.Min(migration => migration.Version);
-                LastVersion = migrations.Max(migration => migration.Version);
-            }
-            else
-            {
-                FirstVersion = MigrationVersion.Default();
-                LastVersion = MigrationVersion.Default();
-            }
+            MigrationsToBeApplied = migrationsToBeApplied;
+            FirstVersion = firstVersion;
+            LastVersion = lastVersion;
         }
 
         internal void CompleteMigrationSession()
@@ -52,12 +46,5 @@ namespace Migrations.Types
         public string StackTrace { get; set; }
 
         internal readonly IEnumerable<Migration> MigrationsToBeApplied;
-
-        private static string _getSuccessfulString(bool completedSuccessfully)
-        {
-            return completedSuccessfully
-                ? "successful"
-                : "unsuccessful";
-        }
     }
 }
