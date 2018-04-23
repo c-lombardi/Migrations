@@ -43,8 +43,6 @@
     <Compile Include="Internals\MigrationHelpers.cs" />
     <Compile Include="Internals\MigrationSessionHelpers.cs" />
     <Compile Include="Types\RepositoryMigration.cs" />
-    <Compile Include="Internals\RepositoryMigrationSession.cs" />
-    <Compile Include="Internals\RepositoryMigrationStatus.cs" />
     <Compile Include="ToBeImplemented\IRepository.cs" />
     <Compile Include="Types\Migration.cs" />
     <Compile Include="Types\MigrationException.cs" />
