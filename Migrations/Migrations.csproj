@@ -42,9 +42,10 @@
   <ItemGroup>
     <Compile Include="Internals\MigrationHelpers.cs" />
     <Compile Include="Internals\MigrationSessionHelpers.cs" />
+    <Compile Include="ToBeImplemented\IRepositoryToMigrate.cs" />
     <Compile Include="Types\RepositoryMigration.cs" />
     <Compile Include="ToBeImplemented\IRepository.cs" />
-    <Compile Include="Types\Migration.cs" />
+    <Compile Include="Types\ToBeImplemented\Migration.cs" />
     <Compile Include="Types\MigrationException.cs" />
     <Compile Include="ToBeImplemented\IMigrationLocator.cs" />
     <Compile Include="MigrationRunner.cs" />

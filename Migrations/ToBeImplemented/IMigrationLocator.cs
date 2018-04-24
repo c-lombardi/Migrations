@@ -1,4 +1,4 @@
-﻿using Migrations.Types;
+﻿using Migrations.Types.ToBeImplemented;
 using System.Collections.Generic;
 
 namespace Migrations.ToBeImplemented
