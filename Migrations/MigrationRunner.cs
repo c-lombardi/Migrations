@@ -25,7 +25,7 @@ namespace Migrations
         {
             try
             {
-                repositoryMigration.Migration.Rollback(repositoryToMigrate);
+                repositoryMigration.Migration.Rollback(repository, repositoryToMigrate);
                 MigrationHelpers.FailMigration(
                     repository.DeleteMigration,
                     repositoryMigration);
@@ -52,7 +52,7 @@ namespace Migrations
                     repository.AddMigration,
                     startedMigration);
 
-                startedMigration.Migration.Update(repositoryToMigrate);
+                startedMigration.Migration.Update(repository, repositoryToMigrate);
 
                 MigrationHelpers.CompleteMigration(
                     repository.UpsertMigration,

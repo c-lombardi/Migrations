@@ -15,8 +15,8 @@ namespace Migrations.Types.ToBeImplemented
             Description = description;
         }
 
-        public abstract void Update(IRepositoryToMigrate repository);
+        public abstract void Update(IRepository repository, IRepositoryToMigrate repositoryToMigrate);
 
-        public abstract void Rollback(IRepositoryToMigrate repository);
+        public abstract void Rollback(IRepository repository, IRepositoryToMigrate repositoryToMigrate);
     }
 }
