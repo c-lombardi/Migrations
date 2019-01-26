@@ -40,11 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internals\MigrationHelpersAsync.cs" />
     <Compile Include="Internals\MigrationHelpers.cs" />
+    <Compile Include="Internals\MigrationSessionHelpersAsync.cs" />
     <Compile Include="Internals\MigrationSessionHelpers.cs" />
+    <Compile Include="MigrationRunnerAsync.cs" />
+    <Compile Include="ToBeImplemented\IMigrationLocatorAsync.cs" />
+    <Compile Include="ToBeImplemented\IRepositoryAsync.cs" />
     <Compile Include="ToBeImplemented\IRepositoryToMigrate.cs" />
+    <Compile Include="Types\MigrationSessionAsync.cs" />
+    <Compile Include="Types\RepositoryMigrationAsync.cs" />
     <Compile Include="Types\RepositoryMigration.cs" />
     <Compile Include="ToBeImplemented\IRepository.cs" />
+    <Compile Include="Types\ToBeImplemented\MigrationAsync.cs" />
     <Compile Include="Types\ToBeImplemented\Migration.cs" />
     <Compile Include="Types\MigrationException.cs" />
     <Compile Include="ToBeImplemented\IMigrationLocator.cs" />
