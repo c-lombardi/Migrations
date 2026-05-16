@@ -2,7 +2,7 @@
 
 namespace Migrations.Types
 {
-    public sealed class MigrationException : ApplicationException
+    public sealed class MigrationException : Exception
     {
         public readonly MigrationVersion VersionFailedOn;
 
